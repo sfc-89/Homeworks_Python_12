@@ -25,7 +25,11 @@ class ItWorker(ABC):
 
     @staticmethod
     def sort_workers(*workers: object):
-        return sorted(workers, key=lambda worker: worker.salary)
+        sorted_list = sorted(workers, key=lambda worker: (-worker.salary, worker.surname), reverse=False)
+        sorted_dict = {}
+        for worker_class in sorted_list:
+            sorted_dict[worker_class.surname] = worker_class.salary
+        return sorted_dict
 
 
 class WorkerHour(ItWorker):
