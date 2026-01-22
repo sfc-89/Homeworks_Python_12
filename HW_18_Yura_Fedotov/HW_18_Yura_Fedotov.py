@@ -4,7 +4,8 @@ from abc import ABC, abstractmethod
 
 
 class ItWorker(ABC):
-    def __init__(self):
+    def __init__(self, surname: str):
+        self.surname = surname
         self.salary = self.calculate_salary()
         self.WAR_TAX = 0.015
         self.PDFO = 0.18
@@ -28,10 +29,10 @@ class ItWorker(ABC):
 
 
 class WorkerHour(ItWorker):
-    def __init__(self, hours:float, hour_salary:float):
+    def __init__(self, hours:float, hour_salary:float, surname:str):
         self.hours = hours
         self.hour_salary = hour_salary
-        super().__init__()
+        super().__init__(surname)
 
     def calculate_salary(self):
         return self.hours * self.hour_salary
@@ -41,9 +42,9 @@ class WorkerHour(ItWorker):
 
 
 class WorkerFixed(ItWorker):
-    def __init__(self, fixed_salary: float):
+    def __init__(self, fixed_salary:float, surname:str):
         self.salary = fixed_salary
-        super().__init__()
+        super().__init__(surname)
 
     def calculate_salary(self):
         return super().calculate_salary()
@@ -53,10 +54,10 @@ class WorkerFixed(ItWorker):
 
 
 class WorkerFOP(ItWorker):
-    def __init__(self, hours: float, hour_salary: float):
+    def __init__(self, hours:float, hour_salary:float, surname:str):
         self.hours = hours
         self.hour_salary = hour_salary
-        super().__init__()
+        super().__init__(surname)
 
     def calculate_salary(self):
         return self.hours * self.hour_salary * 1.1
@@ -67,10 +68,10 @@ class WorkerFOP(ItWorker):
         )
 
 class WorkerSelf(ItWorker):
-    def __init__(self, lines: float, lines_salary: float):
+    def __init__(self, lines:float, lines_salary:float, surname:str):
         self.lines = lines
         self.lines_salary = lines_salary
-        super().__init__()
+        super().__init__(surname)
 
     def calculate_salary(self):
         return self.lines * self.lines_salary
