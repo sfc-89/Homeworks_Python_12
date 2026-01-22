@@ -86,5 +86,35 @@ class WorkerSelf(ItWorker):
         )
 
 
+def generate_workers(num_of_workers:int):
+    random_workers_list = []
+    for i in range(num_of_workers):
+        workers_class = random.choice([
+            "WorkerHour", "WorkerFixed", "WorkerFOP", "WorkerSelf"
+        ])
+        worker_name = random.choice([
+            "Smith", "Johnson", "Brown", "Taylor", "Anderson",
+            "Thomas", "Jackson", "White", "Harris", "Martin",
+            "Thompson", "Garcia", "Martinez", "Clark", "Lewis",
+            "Walker", "Hall", "Allen", "Young", "King"
+        ])
+        match workers_class:
+            case "WorkerHour": random_workers_list.append(
+                WorkerHour(random.randint(120, 200), random.randint(50, 100), worker_name)
+            )
+            case "WorkerFixed": random_workers_list.append(
+                WorkerFixed(random.randint(10000, 40000), worker_name)
+            )
+            case "WorkerFOP": random_workers_list.append(
+                WorkerFOP(random.randint(120, 200), random.randint(50, 100), worker_name)
+            )
+            case "WorkerSelf": random_workers_list.append(
+                WorkerFOP(random.randint(1000, 10000), random.randint(5, 10), worker_name)
+            )
+            case _:
+                raise ValueError
+    return random_workers_list
+
+
 if __name__ == '__main__':
-    pass
+    print(ItWorker.sort_workers(*generate_workers(num_of_workers=10)))
