@@ -4,9 +4,9 @@ Author: Yura Fedotov
 
 ## List of Homeworks:
 
-| № | Topic | Homework Name |
-|---|:-----:|--------------:|
-|   |       |               |
+| №  |                           Topic                            |       Homework Name |
+|----|:----------------------------------------------------------:|--------------------:|
+| 25 | Topic 18. OOP 2. Inheritance, Diamand problem, MRO, super  |  HW_18_Yura_Fedotov |
 
 
 
