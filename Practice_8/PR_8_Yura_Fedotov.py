@@ -1,4 +1,5 @@
 import math
+from functools import wraps
 
 
 class Fraction:
@@ -15,30 +16,58 @@ class Fraction:
         self.denominator = int(y / self.__GCD)
 
     @staticmethod
-    def _convert(other):
+    def check_other_number(func):
+        """Check if other value is a number, if yes - converts number to Fraction"""
+        @wraps(func)
+        def wrapper(self, other):
+            if isinstance(other, (int, float)):
+                return func(self, Fraction.fracture(other))
+            elif isinstance(other, Fraction):
+                return func(self, other)
+            return NotImplemented
+
+        return wrapper
+
+    def get_int(self) -> list[int | object]:
+        """returns an [integer, remainder]"""
+        temp_numerator = self.numerator
+        result = 0
+        while temp_numerator >= self.denominator:
+            temp_numerator -= self.denominator
+            result += 1
+        return [result, Fraction(temp_numerator, self.denominator)]
+
+    def convert(self):
+        """Converts from fraction to float"""
+        return self.numerator / self.denominator
+
+    @staticmethod
+    def fracture(other):
         """Converts a number to fraction"""
         if isinstance(other, int):
             return Fraction(numerator=other, denominator=1)
+
         elif isinstance(other, float):
-            number_splited = str(other).split('.')
+            number_splited: list[str] = str(other).split('.')
             if number_splited[1] == '0':
                 return Fraction(numerator=int(number_splited[0]), denominator=1)
             else:
-                return(Fraction(
-                        denominator=10 ** len(number_splited[1]),
-                        numerator=int(number_splited[1]) + int(number_splited[0]) * 10 ** len(number_splited[1])
-                    ))
+                return (Fraction(
+                    denominator=10 ** len(number_splited[1]),
+                    numerator=int(number_splited[1]) + int(number_splited[0]) * 10 ** len(number_splited[1])
+                ))
         else:
             raise ValueError("Not a number")
 
     @staticmethod
     def _is_exists(x: int, y: int):
-        """check if fraction exists"""
+        """Inner: check if fraction exists"""
         if y == 0:
             raise ZeroDivisionError("Denominator cannot be 0")
         if not isinstance(x, int) or not isinstance(y, int):
             raise ValueError("Numerator and Denominator must be numbers")
 
+    @check_other_number
     def __add__(self, other):
         """a/b + c/d"""
         lcm: int = math.lcm(self.denominator, other.denominator)
@@ -47,6 +76,7 @@ class Fraction:
             denominator=lcm
         )
 
+    @check_other_number
     def __sub__(self, other):
         """a/b - c/d"""
         lcm: int = math.lcm(self.denominator, other.denominator)
@@ -55,6 +85,7 @@ class Fraction:
             denominator=lcm
         )
 
+    @check_other_number
     def __truediv__(self, other):
         """a/b / c/d"""
         return Fraction(
@@ -62,6 +93,7 @@ class Fraction:
             denominator=self.denominator * other.numerator
         )
 
+    @check_other_number
     def __mul__(self, other):
         """a/b * c/d"""
         return Fraction(
@@ -69,36 +101,23 @@ class Fraction:
             denominator=self.denominator * other.denominator
         )
 
+    @check_other_number
     def __lt__(self, other) -> bool:
         """a/b < c/d"""
-        if not isinstance(other, Fraction):
-            return NotImplemented
-        lcm = math.lcm(self.denominator, other.denominator)
+        lcm: int = math.lcm(self.denominator, other.denominator)
         return self.numerator * (lcm // self.denominator) < other.numerator * (lcm // other.denominator)
 
+    @check_other_number
     def __gt__(self, other):
         """a/b > c/d"""
-        if not isinstance(other, Fraction):
-            return NotImplemented
-        lcm = math.lcm(self.denominator, other.denominator)
+        lcm: int = math.lcm(self.denominator, other.denominator)
         return self.numerator * (lcm // self.denominator) > other.numerator * (lcm // other.denominator)
 
+    @check_other_number
     def __eq__(self, other):
         """a/b == c/d"""
-        if not isinstance(other, Fraction):
-            return NotImplemented
-        lcm = math.lcm(self.denominator, other.denominator)
+        lcm: int = math.lcm(self.denominator, other.denominator)
         return self.numerator * (lcm // self.denominator) == other.numerator * (lcm // other.denominator)
-
-    def __mod__(self, other):
-        #TODO mod
-        """a/b % c/d"""
-        return Fraction
-
-    def __pow__(self, other):
-        #TODO pow
-        """a/b ** c/d"""
-        return Fraction
 
 
 if __name__ == '__main__':
