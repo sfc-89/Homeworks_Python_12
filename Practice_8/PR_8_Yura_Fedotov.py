@@ -4,7 +4,7 @@ import math
 class Fraction:
     def __init__(self, numerator, denominator):
         self._is_exists(x=numerator, y=denominator)
-        self.__GCD = math.gcd(numerator, denominator)
+        self.__GCD: int = math.gcd(numerator, denominator)
         self._simplify(numerator, denominator)
 
     def _simplify(self, x: int, y: int) -> None:
@@ -23,7 +23,7 @@ class Fraction:
         """a/b + c/d"""
         lcm: int = math.lcm(self.denominator, other.denominator)
         return Fraction(
-            numerator=(self.numerator * int(lcm / self.denominator) + other.numerator * int(lcm / other.denominator)),
+            numerator=(self.numerator * (lcm // self.denominator) + other.numerator * (lcm // other.denominator)),
             denominator=lcm
         )
 
@@ -31,7 +31,7 @@ class Fraction:
         """a/b - c/d"""
         lcm: int = math.lcm(self.denominator, other.denominator)
         return Fraction(
-            numerator=(self.numerator * int(lcm / self.denominator) - other.numerator * int(lcm / other.denominator)),
+            numerator=(self.numerator * (lcm // self.denominator) - other.numerator * (lcm // other.denominator)),
             denominator=lcm
         )
 
@@ -49,17 +49,26 @@ class Fraction:
             denominator=self.denominator * other.denominator
         )
 
-    def __lt__(self, other):
+    def __lt__(self, other) -> bool:
         """a/b < c/d"""
-        return Fraction
+        if not isinstance(other, Fraction):
+            return NotImplemented
+        lcm = math.lcm(self.denominator, other.denominator)
+        return self.numerator * (lcm // self.denominator) < other.numerator * (lcm // other.denominator)
 
     def __gt__(self, other):
         """a/b > c/d"""
-        return Fraction
+        if not isinstance(other, Fraction):
+            return NotImplemented
+        lcm = math.lcm(self.denominator, other.denominator)
+        return self.numerator * (lcm // self.denominator) > other.numerator * (lcm // other.denominator)
 
     def __eq__(self, other):
         """a/b == c/d"""
-        return Fraction
+        if not isinstance(other, Fraction):
+            return NotImplemented
+        lcm = math.lcm(self.denominator, other.denominator)
+        return self.numerator * (lcm // self.denominator) == other.numerator * (lcm // other.denominator)
 
     def __mod__(self, other):
         """a/b % c/d"""
