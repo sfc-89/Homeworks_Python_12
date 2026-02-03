@@ -12,12 +12,14 @@ class Fraction:
         return f"{self.numerator}/{self.denominator}"
 
     def _simplify(self, x: int, y: int) -> None:
+        """simplifies fraction"""
         self.numerator = int(x / self.__GCD)
         self.denominator = int(y / self.__GCD)
 
     @staticmethod
-    def check_other_number(func):
+    def _check_other_number(func):
         """Check if other value is a number, if yes - converts number to Fraction"""
+
         @wraps(func)
         def wrapper(self, other):
             if isinstance(other, (int, float)):
@@ -67,7 +69,7 @@ class Fraction:
         if not isinstance(x, int) or not isinstance(y, int):
             raise ValueError("Numerator and Denominator must be numbers")
 
-    @check_other_number
+    @_check_other_number
     def __add__(self, other):
         """a/b + c/d"""
         lcm: int = math.lcm(self.denominator, other.denominator)
@@ -76,7 +78,7 @@ class Fraction:
             denominator=lcm
         )
 
-    @check_other_number
+    @_check_other_number
     def __sub__(self, other):
         """a/b - c/d"""
         lcm: int = math.lcm(self.denominator, other.denominator)
@@ -85,7 +87,7 @@ class Fraction:
             denominator=lcm
         )
 
-    @check_other_number
+    @_check_other_number
     def __truediv__(self, other):
         """a/b / c/d"""
         return Fraction(
@@ -93,7 +95,7 @@ class Fraction:
             denominator=self.denominator * other.numerator
         )
 
-    @check_other_number
+    @_check_other_number
     def __mul__(self, other):
         """a/b * c/d"""
         return Fraction(
@@ -101,19 +103,19 @@ class Fraction:
             denominator=self.denominator * other.denominator
         )
 
-    @check_other_number
+    @_check_other_number
     def __lt__(self, other) -> bool:
         """a/b < c/d"""
         lcm: int = math.lcm(self.denominator, other.denominator)
         return self.numerator * (lcm // self.denominator) < other.numerator * (lcm // other.denominator)
 
-    @check_other_number
+    @_check_other_number
     def __gt__(self, other):
         """a/b > c/d"""
         lcm: int = math.lcm(self.denominator, other.denominator)
         return self.numerator * (lcm // self.denominator) > other.numerator * (lcm // other.denominator)
 
-    @check_other_number
+    @_check_other_number
     def __eq__(self, other):
         """a/b == c/d"""
         lcm: int = math.lcm(self.denominator, other.denominator)
