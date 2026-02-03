@@ -4,7 +4,6 @@ import math
 class Fraction:
     def __init__(self, numerator, denominator):
         self._is_exists(x=numerator, y=denominator)
-        self.__LCM = math.lcm(numerator, denominator)
         self.__GCD = math.gcd(numerator, denominator)
         self._simplify(numerator, denominator)
 
@@ -19,9 +18,6 @@ class Fraction:
             raise ZeroDivisionError("Denominator cannot be 0")
         if not isinstance(x, int) or not isinstance(y, int):
             raise ValueError("Numerator and Denominator must be numbers")
-
-    def lcm(self):
-        pass
 
     def __add__(self, other):
         """a/b + c/d"""
@@ -41,11 +37,17 @@ class Fraction:
 
     def __truediv__(self, other):
         """a/b / c/d"""
-        return Fraction
+        return Fraction(
+            numerator=self.numerator * other.denominator,
+            denominator=self.denominator * other.numerator
+        )
 
     def __mul__(self, other):
         """a/b * c/d"""
-        return Fraction
+        return Fraction(
+            numerator=self.numerator * other.numerator,
+            denominator=self.denominator * other.denominator
+        )
 
     def __lt__(self, other):
         """a/b < c/d"""
