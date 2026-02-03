@@ -7,9 +7,29 @@ class Fraction:
         self.__GCD: int = math.gcd(numerator, denominator)
         self._simplify(numerator, denominator)
 
+    def printout(self):
+        return f"{self.numerator}/{self.denominator}"
+
     def _simplify(self, x: int, y: int) -> None:
         self.numerator = int(x / self.__GCD)
         self.denominator = int(y / self.__GCD)
+
+    @staticmethod
+    def _convert(other):
+        """Converts a number to fraction"""
+        if isinstance(other, int):
+            return Fraction(numerator=other, denominator=1)
+        elif isinstance(other, float):
+            number_splited = str(other).split('.')
+            if number_splited[1] == '0':
+                return Fraction(numerator=int(number_splited[0]), denominator=1)
+            else:
+                return(Fraction(
+                        denominator=10 ** len(number_splited[1]),
+                        numerator=int(number_splited[1]) + int(number_splited[0]) * 10 ** len(number_splited[1])
+                    ))
+        else:
+            raise ValueError("Not a number")
 
     @staticmethod
     def _is_exists(x: int, y: int):
@@ -71,10 +91,12 @@ class Fraction:
         return self.numerator * (lcm // self.denominator) == other.numerator * (lcm // other.denominator)
 
     def __mod__(self, other):
+        #TODO mod
         """a/b % c/d"""
         return Fraction
 
     def __pow__(self, other):
+        #TODO pow
         """a/b ** c/d"""
         return Fraction
 
