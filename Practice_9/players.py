@@ -7,10 +7,6 @@ class AbstractPlayer:
         self.hand = Hand()
         self.full_points = 0
 
-    # @property
-    # def cards(self):
-    #     return self.hand.cards
-
     def ask_card(self):
         raise NotImplementedError("Method should be implemented")
 
@@ -31,9 +27,8 @@ class Player(AbstractPlayer):
         super().__init__(name=name)
 
     def ask_card(self):
-        if self.playing:
-            choice = input("Do you want to get a new card?(y/n): ")
-            return True if choice=='y' else False
+        choice = input("Do you want to get a new card?(y/n): ")
+        return True if choice=='y' else False
 
     def take_card(self, card):
         super().take_card(card)
@@ -46,7 +41,6 @@ class Player(AbstractPlayer):
 
 
 class Dealer(AbstractPlayer):
-    # TODO: Modify dealer logic
     max_points = 17
 
     def __init__(self, name="Dealer"):
@@ -59,5 +53,3 @@ class Dealer(AbstractPlayer):
         super().take_card(cards[0])
         super().take_card(cards[1])
         print(self.hand)
-
-#TODO: add tests
