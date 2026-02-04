@@ -44,7 +44,7 @@ class CLI_Game:
         if action:
             self.player.take_card(self.deck.get_card())
         else:
-            while self.dealer.full_points <= self.dealer.max_points:
+            while self.dealer.ask_card():
                 sleep(0.5)
                 self.dealer.take_card(self.deck.get_card())
 
