@@ -2,10 +2,6 @@ from random import shuffle
 
 if __name__ != '__main__':
     from const import CARD_VALUES, RANKS, SUITS
-# SUITS = ['♠', '♣', '♦', '♥']  # "\u2665", "\u2666", "\u2660", "\u2663"
-# RANKS = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
-# CARD_VALUES = {'2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 10,
-#                'J': 10, 'Q': 10, 'K': 10, 'A': 11}
 
 
 class Card:
@@ -17,7 +13,6 @@ class Card:
         self.picture = picture
 
     def __lt__(self, other):
-        # !TODO: Implement comparision
         return RANKS.index(self.rank) < RANKS.index(other.rank)
 
     def __gt__(self, other):
@@ -63,7 +58,6 @@ class Hand:
 
 class Deck:
     def __init__(self, deck_count=1):
-
         self.__deck = [Card(suit, rank, value) for suit in SUITS for rank, value in CARD_VALUES.items()] * deck_count
 
         self.game_deck = []
@@ -72,13 +66,6 @@ class Deck:
     def shuffle(self):
         self.game_deck[:] = self.__deck[:]
         shuffle(self.game_deck)
-
-    # def __iter__(self):
-    #     shuffle(self.__deck)
-    #     return iter(self.__deck)
-
-    # def __next__(self):
-    #     return
 
     def get_card(self):
         if len(self.game_deck) <= 5:
