@@ -47,7 +47,7 @@ class Dealer(AbstractPlayer):
         super().__init__(name=name)
 
     def ask_card(self):
-        return True if self.full_points < self.max_points else False
+        return True if self.full_points <= self.max_points else False
 
     def take_card(self, card):
         super().take_card(card)
