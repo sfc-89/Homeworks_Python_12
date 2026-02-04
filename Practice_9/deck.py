@@ -20,8 +20,11 @@ class Card:
         # !TODO: Implement comparision
         return RANKS.index(self.rank) < RANKS.index(other.rank)
 
+    def __gt__(self, other):
+        return RANKS.index(self.rank) > RANKS.index(other.rank)
+
     def __str__(self):
-        return f"{self.suit}{self.rank}"
+        return f"|{self.suit}{self.rank}|"
 
 
 class Hand:
@@ -55,7 +58,7 @@ class Hand:
         self.cards.clear()
 
     def __str__(self):
-        return f'|{"|".join(map(str, self.cards))}|'
+        return "".join(map(str, self.cards))
 
 
 class Deck:
