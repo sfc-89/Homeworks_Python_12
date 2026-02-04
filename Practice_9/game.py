@@ -6,7 +6,6 @@ from time import sleep
 
 
 class CLI_Game:
-
     def __init__(self, name):
         self.name = name
         self.deck = Deck(1)
@@ -66,4 +65,4 @@ if __name__ == '__main__':
     from players import Player, Dealer
 
     game = CLI_Game("Test")
-    game.play()
+    print(game.play())
