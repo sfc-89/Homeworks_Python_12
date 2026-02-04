@@ -8,6 +8,7 @@ Author: Yura Fedotov
 |----|:---------------------------------------------------------:|-------------------:|
 | 25 | Topic 18. OOP 2. Inheritance, Diamand problem, MRO, super | HW_18_Yura_Fedotov |
 | 26 |                 Practice 8 Fraction_Class                 |         Practice_8 |
+| 29 |            practice 9 Black_Jack (OOP). Tests             |         Practice_9 |
 
 
 
