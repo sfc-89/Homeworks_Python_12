@@ -5,7 +5,6 @@ if __name__ != '__main__':
 
 
 class Card:
-
     def __init__(self, suit, rank, points, picture=None):
         self.suit = suit
         self.rank = rank
@@ -23,7 +22,6 @@ class Card:
 
 
 class Hand:
-
     def __init__(self):
         self.cards = []
         self.reset()
