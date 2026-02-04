@@ -27,17 +27,17 @@ class Player(AbstractPlayer):
         super().__init__(name=name)
 
     def ask_card(self):
-        choice = input("Do you want to get a new card?(y/n): ")
-        return True if choice=='y' else False
+        choice = input("\nDo you want to get a new card?(y/n): ")
+        return True if choice == 'y' else False
 
     def take_card(self, card):
         super().take_card(card)
-        print(self.hand)
+        print(f"\nYour hand is {self.hand}, Current points is {self.full_points}")
 
     def take_two_cards(self, cards):
         super().take_card(cards[0])
         super().take_card(cards[1])
-        print(self.hand)
+        print(f"\nYour hand is {self.hand}, Current points is {self.full_points}")
 
 
 class Dealer(AbstractPlayer):
@@ -49,7 +49,11 @@ class Dealer(AbstractPlayer):
     def ask_card(self):
         return True if self.full_points < self.max_points else False
 
+    def take_card(self, card):
+        super().take_card(card)
+        print(f"\nDealer took card!\nDealer hand is {self.hand}, Current points is {self.full_points}")
+
     def take_two_cards(self, cards):
         super().take_card(cards[0])
         super().take_card(cards[1])
-        print(self.hand)
+        print(f"\nDealer hand is {self.hand}, Current points is {self.full_points}")
